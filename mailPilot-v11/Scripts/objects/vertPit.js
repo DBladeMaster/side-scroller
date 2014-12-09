@@ -1,22 +1,16 @@
 ﻿/// <reference path="../managers/asset.ts" />
 /// <reference path="lifeOrb.ts" />
-
 /**
-    Author: Peter Smith
-    Last Modified by: Peter Smith
-    Last Modified: November 15, 2014
-    Description: A vertical Pit
+Author: Peter Smith
+Last Modified by: Peter Smith
+Last Modified: November 15, 2014
+Description: A vertical Pit
 **/
-module objects {
+var objects;
+(function (objects) {
     // Cloud class
-    export class vertPit {
-        image: createjs.Sprite;
-        stage: createjs.Stage;
-        game: createjs.Container;
-        width: number;
-        height: number;
-        dx: number;
-        constructor(stage: createjs.Stage, game: createjs.Container) {
+    var vertPit = (function () {
+        function vertPit(stage, game) {
             this.stage = stage;
             this.game = game;
             this.image = new createjs.Sprite(managers.Assets.hazards, "vert pit");
@@ -30,21 +24,23 @@ module objects {
 
             game.addChild(this.image);
         }
-
-        update() {
+        vertPit.prototype.update = function () {
             this.image.x -= this.dx;
             if (this.image.x < 0) {
                 this.reset();
             }
-        }
+        };
 
-        reset() {
+        vertPit.prototype.reset = function () {
             this.image.y = Math.floor(Math.random() * this.stage.canvas.height);
             this.image.x = this.stage.canvas.width + Math.floor(Math.random() * this.stage.canvas.width);
-        }
+        };
 
-        destroy() {
+        vertPit.prototype.destroy = function () {
             game.removeChild(this.image);
-        }
-    }
-}
+        };
+        return vertPit;
+    })();
+    objects.vertPit = vertPit;
+})(objects || (objects = {}));
+//# sourceMappingURL=vertPit.js.map

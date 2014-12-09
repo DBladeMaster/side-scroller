@@ -8,9 +8,11 @@
 module managers {
     // Image and Sound Manifest;
     var assetManifest = [
-        { id: "loading", src: "assets/images/loading.jpg" },
-        { id: "land", src: "assets/images/background.png" },
-        { id: "title", src: "assets/images/title screen logo.png" },
+        { id: "intro", src: "assets/images/start screen.png" },
+        { id: "title", src: "assets/images/title logo.png" },
+        { id: "end", src: "assets/images/ending logo.png" },
+        { id: "points", src: "assets/images/score.png" },
+        { id: "land", src: "assets/images/plains.png" },
         { id: "overworld", src: "assets/sounds/overworld.mp3" },
         { id: "dead", src: "assets/sounds/Game Over.mp3" },
         { id: "hurt", src: "assets/sounds/hurt.wav" },
@@ -22,18 +24,20 @@ module managers {
     var spriteSheetData = {
         "images": ["assets/images/atlas.png"],
         "frames": [
-            [2, 2, 226, 178],
-            [230, 2, 211, 69],
-            [443, 69, 62, 63],
             [230, 73, 211, 69],
-            [230, 144, 211, 69]
+            [230, 144, 211, 69],
+            [6, 0, 211, 69],
+            [6, 67, 211, 69],
+            [6, 141, 211, 69],
+            [230, 0, 211, 69]
         ],
         "animations": {
-            "cloud": [0],
-            "instructionsButton": [1],
-            "island": [2],
-            "playButton": [3],
-            "tryAgainButton": [4]
+            "playButton": [0],
+            "tryAgainButton": [1],
+            "easyButton": [2],
+            "mediumButton": [3],
+            "hardButton": [4],
+            "mainMenuButton": [5]
         }
     }
 
@@ -41,9 +45,9 @@ module managers {
     var characterSheetData = {
         "images": ["assets/images/character atlas.png"],
         "frames": [
-            [2, 64, 31, 32],
-            [31, 64, 31, 32],
-            [60, 64, 31, 32]
+            [5, 65, 22, 30],
+            [37, 64, 22, 31],
+            [69, 65, 22, 30]
         ],
         "animations": {
             "frame 1": [0],
@@ -52,15 +56,30 @@ module managers {
         }
     }
 
+    //character sprite sheet data object
+    var thiefSheetData = {
+        "images": ["assets/images/thief atlas.png"],
+        "frames": [
+            [4, 33, 24, 31],
+            [36, 31, 26, 32],
+            [68, 33, 26, 31]
+        ],
+        "animations": {
+            "thief 1": [0],
+            "thief 2": [1],
+            "thief 3": [2]
+        }
+    }
+
     //hazard sprite sheet data object
     var hazardsSheetData = {
         "images": ["assets/images/hazards.png"],
         "frames": [
-            [28, 290, 67, 31],
-            [27, 350, 69, 35],
-            [222, 34, 31, 59],
-            [155, 29, 38, 68],
-            [92, 65, 33, 29]
+            [33, 289, 58, 29],
+            [27, 350, 68, 37],
+            [224, 34, 26, 59],
+            [154, 28, 39, 69],
+            [93, 65, 29, 26]
         ],
         "animations": {
             "hor pit": [0],
@@ -95,6 +114,7 @@ module managers {
         public static character: createjs.SpriteSheet;
         public static collectables: createjs.SpriteSheet;
         public static hazards: createjs.SpriteSheet;
+        public static thief: createjs.SpriteSheet;
 
         public static init() {
             createjs.Sound.initializeDefaultPlugins();
@@ -105,6 +125,7 @@ module managers {
             this.character = new createjs.SpriteSheet(characterSheetData);
             this.collectables = new createjs.SpriteSheet(collectablesSheetData);
             this.hazards = new createjs.SpriteSheet(hazardsSheetData);
+            this.thief = new createjs.SpriteSheet(thiefSheetData);
         }
 
     }

@@ -1,10 +1,6 @@
 ﻿/// <reference path="constants.ts" />
 /// <reference path="managers/asset.ts" />
 /// <reference path="objects/hazards.ts" />
-/// <reference path="objects/vertPit.ts" />
-/// <reference path="objects/horPit.ts" />
-/// <reference path="objects/vertFirePit.ts" />
-/// <reference path="objects/horFirePit.ts" />
 /// <reference path="objects/crystal.ts" />
 /// <reference path="objects/lifeOrb.ts" />
 /// <reference path="objects/land.ts" />
@@ -16,6 +12,7 @@
 /// <reference path="states/play.ts" />
 /// <reference path="states/menu.ts" />
 /// <reference path="states/gameover.ts" />
+/// <reference path="objects/enemy.ts" />
 
 /**
     Author: Peter Smith
@@ -29,14 +26,11 @@ var game: createjs.Container;
 
 var land: objects.Land;
 var player: objects.player;
+var enemy: objects.enemy;
 
 var crystal: objects.Crystal;
 var lifeOrb: objects.lifeOrb;
-var stones = []; // stones array;
-var vertPit = []; // vertical pit array;
-var horPit = []; // horizontal pit array;
-var vertFirePit = []; // vertical fire pit array;
-var horFirePit = []; // horizontal fire pit array;
+var hazard = []; // stones array;
 var scoreboard: objects.Scoreboard;
 
 var collision: managers.Collision;

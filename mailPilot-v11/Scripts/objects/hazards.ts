@@ -11,15 +11,23 @@ module objects {
     // Cloud class
     export class Hazards {
         image: createjs.Sprite;
+        images = [];
+        name;
         stage: createjs.Stage;
         game: createjs.Container;
         width: number;
         height: number;
         dx: number;
         constructor(stage: createjs.Stage, game: createjs.Container) {
+            this.images[0] = "stones";
+            this.images[1] = "hor pit";
+            this.images[2] = "vert pit";
+            this.images[3] = "hor firepit";
+            this.images[4] = "vert firepit";
+            this.image = new createjs.Sprite(managers.Assets.hazards, (this.name = this.images[Math.floor(Math.random() * 5)]));
             this.stage = stage;
             this.game = game;
-            this.image = new createjs.Sprite(managers.Assets.hazards, "stones");
+            //this.image = new createjs.Sprite(managers.Assets.hazards, "stones");
             this.width = this.image.getBounds().width;
             this.height = this.image.getBounds().height;
             this.image.regX = this.width / 2;
@@ -39,8 +47,11 @@ module objects {
         }
 
         reset() {
-            this.image.y = Math.floor(Math.random() * this.stage.canvas.height);
-            this.image.x = this.stage.canvas.width + Math.floor(Math.random() * this.stage.canvas.width);
+            game.removeChild(this.image);
+            this.image = new createjs.Sprite(managers.Assets.hazards, (this.name = this.images[Math.floor(Math.random() * 5)]));
+            this.image.y = constants.COORDINATES[Math.floor(Math.random() * 6)];
+            this.image.x = this.stage.canvas.width + constants.COORDINATES[Math.floor(Math.random() * 6)];
+            game.addChild(this.image);
         }
 
         destroy() {

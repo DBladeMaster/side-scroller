@@ -1,9 +1,5 @@
 ﻿/// <reference path="../objects/button.ts" />
 /// <reference path="../objects/hazards.ts" />
-/// <reference path="../objects/vertPit.ts" />
-/// <reference path="../objects/horPit.ts" />
-/// <reference path="../objects/vertFirePit.ts" />
-/// <reference path="../objects/horFirePit.ts" />
 /// <reference path="../objects/crystal.ts" />
 /// <reference path="../objects/lifeOrb.ts" />
 /// <reference path="../objects/label.ts" />
@@ -25,14 +21,10 @@ module states {
         crystal.update();
         lifeOrb.update();
         player.update();
-        
 
+        // Create multiple hazards
         for (var count = 0; count < constants.HAZARDS_NUM; count++) {
-            stones[count].update();
-            vertPit[count].update();
-            horPit[count].update();
-            vertFirePit[count].update();
-            horFirePit[count].update();
+            hazard[count].update();
         }
 
         collision.update();
@@ -68,18 +60,14 @@ module states {
 
         // Create multiple hazards
         for (var count = 0; count < constants.HAZARDS_NUM; count++) {
-            stones[count] = new objects.Hazards(stage, game);
-            horPit[count] = new objects.horPit(stage, game);
-            vertPit[count] = new objects.vertPit(stage, game);
-            horFirePit[count] = new objects.horFirePit(stage, game);
-            vertFirePit[count] = new objects.vertFirePit(stage, game);
+            hazard[count] = new objects.Hazards(stage, game);
         }
 
         // Display Scoreboard
         scoreboard = new objects.Scoreboard(stage, game);
 
         // Instantiate Collision Manager
-        collision = new managers.Collision(player, crystal, lifeOrb, stones, vertPit, horPit, vertFirePit, horFirePit, scoreboard);
+        collision = new managers.Collision(player, crystal, lifeOrb, hazard, scoreboard);
 
         stage.addChild(game);
         this.overworld = createjs.Sound.play('overworld', createjs.Sound.INTERRUPT_NONE, 0, 0, -1, 1, 0);

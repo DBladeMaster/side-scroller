@@ -29,6 +29,16 @@ var states;
     }
     states.tryAgainClicked = tryAgainClicked;
 
+    // Restart Game when Try Again Button is clicked
+    function mainMenuClicked(event) {
+        stage.removeChild(game);
+        game.removeAllChildren();
+        game.removeAllEventListeners();
+        currentState = constants.MENU_STATE;
+        changeState(currentState);
+    }
+    states.mainMenuClicked = mainMenuClicked;
+
     // Game Over Scene
     function gameOver() {
         var gameOverLabel;
@@ -49,11 +59,14 @@ var states;
         stage.cursor = "default";
 
         // Display Game Over
-        gameOverLabel = new objects.Label(stage.canvas.width / 2, 40, "GAME OVER");
+        gameOverLabel = new createjs.Bitmap(managers.Assets.loader.getResult("end"));
+        gameOverLabel.x = 60;
         game.addChild(gameOverLabel);
 
         // Display Final Score Label
-        finalScoreLabel = new objects.Label(stage.canvas.width / 2, 120, "FINAL SCORE");
+        finalScoreLabel = new createjs.Bitmap(managers.Assets.loader.getResult("points"));
+        finalScoreLabel.x = 60;
+        finalScoreLabel.y = 80;
         game.addChild(finalScoreLabel);
 
         // Display Final Score
@@ -61,9 +74,14 @@ var states;
         game.addChild(finalScore);
 
         // Display Try Again Button
-        tryAgain = new objects.Button(stage.canvas.width / 2, 300, "tryAgainButton");
+        tryAgain = new objects.Button(stage.canvas.width / 2, 400, "tryAgainButton");
         game.addChild(tryAgain);
         tryAgain.addEventListener("click", tryAgainClicked);
+
+        // Display Try Again Button
+        var mainMenu = new objects.Button(stage.canvas.width / 2, 300, "mainMenuButton");
+        game.addChild(mainMenu);
+        mainMenu.addEventListener("click", mainMenuClicked);
 
         stage.addChild(game);
         this.dead = createjs.Sound.play('dead', createjs.Sound.INTERRUPT_NONE, 0, 0, -1, 1, 0);
